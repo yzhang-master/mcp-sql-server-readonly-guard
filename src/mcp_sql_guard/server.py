@@ -52,11 +52,7 @@ class MCPStdioServer:
                 except (json.JSONDecodeError, TypeError, ValueError) as exc:
                     self._send_error(None, -32600, str(exc))
         finally:
-            with self._requests_lock:
-                cancellations = list(self._cancellations.values())
-            for event in cancellations:
-                event.set()
-            self._executor.shutdown(wait=True, cancel_futures=True)
+            self._executor.shutdown(wait=True)
 
     def _dispatch(self, message: Any) -> None:
         if not isinstance(message, dict) or message.get("jsonrpc") != "2.0":
