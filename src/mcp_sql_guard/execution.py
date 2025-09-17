@@ -188,7 +188,11 @@ class QueryEngine:
                 raise QueryCancelled("query cancelled") from exc
             if time.perf_counter() >= deadline:
                 raise QueryTimeout(f"query exceeded {self.limits.timeout_ms} ms") from exc
-            if "not authorized" in str(exc).lower() or "authorization denied" in str(exc).lower():
+            message = str(exc).lower()
+            if any(
+                text in message
+                for text in ("not authorized", "authorization denied", "no such function")
+            ):
                 raise QueryDenied("SQLite authorizer denied the query") from exc
             raise QueryError(str(exc)) from exc
         except sqlite3.Error as exc:
