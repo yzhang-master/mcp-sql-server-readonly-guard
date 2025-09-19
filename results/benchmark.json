@@ -1,0 +1,19 @@
+{
+  "timestamp": "2026-11-14T16:13:22.980310+01:00",
+  "sqlite_version": "3.45.1",
+  "repetitions": 50,
+  "authorized_queries": 50,
+  "authorized_latency_ms": {
+    "p50": 0.40125300074578263,
+    "p95": 0.8149780005624052,
+    "mean": 0.44207374019606505
+  },
+  "attack_queries": 450,
+  "blocked_queries": 450,
+  "blocked_query_rate": 1.0,
+  "blocked_latency_ms": {
+    "p50": 0.03895100235240534,
+    "p95": 0.21730699882027693
+  },
+  "database_rows_after_attacks": 20
+}
