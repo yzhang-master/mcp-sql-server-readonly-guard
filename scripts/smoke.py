@@ -44,8 +44,10 @@ def main() -> None:
             check=True,
         )
         responses = [json.loads(line) for line in process.stdout.splitlines()]
-        assert responses[2]["result"]["structuredContent"]["rows"] == [["ok"]]
-        assert responses[3]["result"]["isError"]
+        by_id = {response["id"]: response for response in responses}
+        assert set(by_id) == {1, 2, 3, 4}
+        assert by_id[3]["result"]["structuredContent"]["rows"] == [["ok"]]
+        assert by_id[4]["result"]["isError"]
         print(json.dumps(responses, indent=2))
 
 
